@@ -6,8 +6,8 @@ WORKING_DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 source "${WORKING_DIR}/bash-logging/filehandler.sh" # logger
 # source "${WORKING_DIR}/bash-logging/streamhandler.sh" # logger
 
-filename=$(basename "$0" | sed s/\.[^\.]*$//)
-logfile="$WORKING_DIR/${filename}.log"
+#filename=$(basename "$0" | sed s/\.[^\.]*$//)
+logfile="$WORKING_DIR/logs/${DOMAIN_TO_CHECK}.log"
 
 info "starting $0"
 debug "DOMAIN_TO_CHECK = ${DOMAIN_TO_CHECK}"
@@ -26,11 +26,11 @@ info "done"
 
 # roll log if this is new years eve
 if [[ $(( $(date +%y) % 4)) -eq 0 ]];then
-	if [[ $(date +%j) == 366]]; then
-		mv $logfile $WORKING_DIR/$(date +%Y)-${filename}.log
+	if [[ $(date +%j) == 366 ]]; then
+		mv $logfile $WORKING_DIR/logs/$(date +%Y)-${DOMAIN_TO_CHECK}.log
 	fi
 else
-	if [[ $(date +%j) == 365]]; then
-		mv $logfile $WORKING_DIR/$(date +%Y)-${filename}.log
+	if [[ $(date +%j) == 365 ]]; then
+		mv $logfile $WORKING_DIR/logs/$(date +%Y)-${DOMAIN_TO_CHECK}.log
 	fi
 fi
