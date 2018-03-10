@@ -23,3 +23,14 @@ else
 fi
 
 info "done"
+
+# roll log if this is new years eve
+if [[ $(( $(date +%y) % 4)) -eq 0 ]];then
+	if [[ $(date +%j) == 366]]; then
+		mv $logfile $WORKING_DIR/$(date +%Y)-${filename}.log
+	fi
+else
+	if [[ $(date +%j) == 365]]; then
+		mv $logfile $WORKING_DIR/$(date +%Y)-${filename}.log
+	fi
+fi
