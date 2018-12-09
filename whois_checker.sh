@@ -1,6 +1,7 @@
 #!/usr/bin/env bash
 
 DOMAIN_TO_CHECK=$1
+PUSHOVER_URL=$2
 
 WORKING_DIR="$( cd "$(dirname "$0")" ; pwd -P )"
 source "${WORKING_DIR}/bash-logging/filehandler.sh" # logger
@@ -17,8 +18,7 @@ debug "RESP = \"${RESP}\""
 
 if [ -z "$RESP" ]; then
 	info "got nothing back. this domain is available. going to send a push message."
-	curl -s -o /dev/null -X POST --data "message=${DOMAIN_TO_CHECK} is available" https://michaelhollister.me/api/pushover 2>&1
-	#curl -s -o /dev/null -X POST --data "message=${DOMAIN_TO_CHECK} is available" http://home.michaelhollister.me/api/pushover 2>&1
+	curl -s -o /dev/null -X POST --data "message=${DOMAIN_TO_CHECK} is available" $PUSHOVER_URL 2>&1
 else
 	info "got something back. this domain is in use. going to do nothing."
 fi
